@@ -1,27 +1,27 @@
 class Note_Handler
 
-	def self.get_all_notes
-		g = Grow.get(params[:grow])
+	def self.get_all_notes(grow_id)
+		g = Grow.find(grow_id)
 		n = g.notes.to_json
 	end
 	
-	def self.get_note
-		g = Grow.get(params[:grow])
-		n = g.notes.get(params[:id]).to_json
+	def self.get_note(grow_id, plant_id)
+		g = Grow.find(grow_id)
+		n = g.notes.get(plant_id).to_json
 	end
 
-	def self.post_note
-		g = Grow.get(params[:grow])
+	def self.post_note(grow_id, title, created_date, body)
+		g = Grow.find(grow_id)
 		n = Note.new()
-		(params[:title]) ? n.title = (params[:title]) : n.title = Time.now
-		(params[:created]) ? n.created_date = (params[:created]) : n.created_date = Time.now
-		(params[:text]) ? n.text_field = (params[:text]) : n.text_field = "Empty Note"
+		if title != nil then n.title = title end
+		if created_date != nil then n.created_date = created_date end
+		if body != nil then n.text = body end
 		g.notes << n
 	end
 	
-	def self.remove_note
-		g = Grow.get(params[:grow])
-		n = g.notes.get(params[:id])
+	def self.remove_note(grow_id, plant_id)
+		g = Grow.find(grow_id)
+		n = g.notes.find(plant_id)
 		n.destroy
 	end
 	

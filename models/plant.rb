@@ -3,10 +3,9 @@ class Plant
 	belongs_to :grow
 	has_many :journal
 	
-	
 	#Attributes
-	field :date_planted, type: DateTime
-	field :strain, type: String	
+	field :date_planted, type: DateTime, default: DateTime.now
+	field :strain, type: String
 	#moisture and ph should probably be an array of floats
 	field :moisture_level, type: Array
 	field :soil_ph, type: Array
