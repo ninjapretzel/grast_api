@@ -12,7 +12,10 @@ class Note_Handler
 
 	def self.post_note
 		g = Grow.get(params[:grow])
-		n = Note.new(params[:note])
+		n = Note.new()
+		(params[:title]) ? n.title = (params[:title]) : n.title = Time.now
+		(params[:created]) ? n.created_date = (params[:created]) : n.created_date = Time.now
+		(params[:text]) ? n.text_field = (params[:text]) : n.text_field = "Empty Note"
 		g.notes << n
 	end
 	

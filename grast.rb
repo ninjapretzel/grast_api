@@ -35,7 +35,7 @@ class Grast < Sinatra::Base
 	end
 	#update soil moisture
 	put '/:grow/plants/:id/soil' do
-		
+		Plant_Handler::update_moisture()
 	end
 
 	#Insert/Query notes
