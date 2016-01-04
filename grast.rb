@@ -10,7 +10,7 @@ db = Mongoid.load!("./mongoid.yml", :development)
 
 class Grast < Sinatra::Base
 	get '/' do
-		"fart"
+		puts "Check"
 		Test::hole()
 	end
 
