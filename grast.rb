@@ -60,19 +60,19 @@ class Grast < Sinatra::Base
 	#Insert/Query equipment
 	#get - all equipment
 	get '/:grow/equipment' do
-		Equipment_Handler::get_all_equipment()
+		Equipment_Handler::get_all_equipment(params[:grow])
 	end
 	#get - a piece of equipment
 	get '/:grow/equiment/:id' do
-		Equipment_Handler::get_equipment()
+		Equipment_Handler::get_equipment(params[:grow], params[:id])
 	end
 	#post - equipment
 	post '/:grow/equipment/add' do
-		Equipment_Handler::post_equipment()
+		Equipment_Handler::post_equipment(params[:grow])
 	end
 	#delete a piece of equipment
 	delete '/:grow/equipment/:id' do
-		Equipment_Handler::remove_equipment()
+		Equipment_Handler::remove_equipment(params[:grow], params[:id])
 	end
 
 	#insert/Query notifications
@@ -81,19 +81,19 @@ class Grast < Sinatra::Base
 	# last 50 in local storage or somethin
 	#get - all notification
 	get '/:grow/notification' do
-		Notification_Handler::get_all_notification()
+		Notification_Handler::get_all_notification(params[:grow])
 	end
 	#get - a single notification
 	get '/:grow/notification/:id' do
-		Notification_Handler::get_notification()
+		Notification_Handler::get_notification(params[:grow], params[:id])
 	end
 	#post - notification
 	post '/:grow/notification/add' do
-		Notification_Handler::post_notification()
+		Notification_Handler::post_notification(params[:grow])
 	end
 	
 	delete '/:grow/notification/:id' do
-		Notifcation_Handler::remove_notification()
+		Notifcation_Handler::remove_notification(params[:grow], params[:id])
 	end
 	
 
