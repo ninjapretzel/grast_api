@@ -1,7 +1,7 @@
 class Test
 
 	def self.hole
-		puts "hello world"
+		"hello world"
 	end
 
 end

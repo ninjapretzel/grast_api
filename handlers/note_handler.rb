@@ -10,12 +10,17 @@ class Note_Handler
 		n = g.notes.get(plant_id).to_json
 	end
 
-	def self.post_note(grow_id, title, created_date, body)
+	def self.post_note(grow_id, data)
+		puts "Note Posting"
 		g = Grow.find(grow_id)
+		data = @request_payload
+		puts "here"
+		puts data
+		puts "and here"
 		n = Note.new()
-		if title != nil then n.title = title end
-		if created_date != nil then n.created_date = created_date end
-		if body != nil then n.text = body end
+		#if  != nil then n.title = title end
+		#if  != nil then n.text_field = body end
+		puts n
 		g.notes << n
 	end
 	

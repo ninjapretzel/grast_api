@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'sinatra/cross_origin'
 require 'mongo'
 require 'mongoid'
 require 'json'
@@ -9,8 +10,14 @@ Dir[File.dirname(__FILE__) + '/models/*.rb'].each {|file| require file }
 db = Mongoid.load!("./mongoid.yml", :development)
 
 class Grast < Sinatra::Base
+	
+	register Sinatra::CrossOrigin
+	enable :cross_origin
+	
+	set :bind, '0.0.0.0'
+	
 	get '/' do
-		puts "Check"
+		"Check"
 		Test::hole()
 	end
 
@@ -50,7 +57,9 @@ class Grast < Sinatra::Base
 	end
 	#post - note
 	post '/:grow/notes/add' do
-		Note_Handler::post_note(params[:grow], params[:title], params[:created_date], params[:body])
+		puts "ADD NOTES"
+		content_type :json
+		Note_Handler::post_note(params[:grow], params[:data])
 	end
 	#delete a note
 	delete '/:grow/notes/:id' do
