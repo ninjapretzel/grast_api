@@ -10,14 +10,14 @@ class Plant_Handler
 		g.plants.get(plant_id).to_json
 	end
 
-	def self.post_plant(grow_id, plant_strain, planted_date)
+	def self.post_plant(grow_id, plant_strain, planted_date, plant)
 		g = Grow.find(grow_id)
 		p = Plant.new()
-		#set the strain property if we got it
-		if plant_strain != nil then p.strain = plant_strain end
-		#Check for a date planted, if not set it to the current time
-		if planted_date != nil then p.date_planted = planted_date end
+		if JSON.parse(plant).to_h['plant']['strain'] != nil then p.strain = JSON.parse(plant).to_h['plant']['strain'] end
+			
+			if JSON.parse(plant).to_h['plant']['planted_date'] != nil then p.date_planted = JSON.parse(plant).to_h['plant']['planted_date'] end
 		g.plants << p
+		"{\"response\" : \"OK\", \"plant_id\" : \"#{p._id}\" }"
 	end
 	
 	def self.remove_plant(grow_id, plant_id)

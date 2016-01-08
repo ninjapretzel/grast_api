@@ -7,21 +7,16 @@ class Note_Handler
 	
 	def self.get_note(grow_id, plant_id)
 		g = Grow.find(grow_id)
-		n = g.notes.get(plant_id).to_json
+		n = g.notes.find(plant_id).to_json
 	end
 
-	def self.post_note(grow_id, data)
-		puts "Note Posting"
+	def self.post_note(grow_id, data, note)
 		g = Grow.find(grow_id)
-		data = @request_payload
-		puts "here"
-		puts data
-		puts "and here"
 		n = Note.new()
-		#if  != nil then n.title = title end
-		#if  != nil then n.text_field = body end
-		puts n
+		n.title = JSON.parse(note).to_h['note']['title']
+		n.text_field = JSON.parse(note).to_h['note']['text']
 		g.notes << n
+		"{\"response\" : \"OK\", \"note_id\" : \"#{n._id}\" }"
 	end
 	
 	def self.remove_note(grow_id, plant_id)

@@ -16,6 +16,11 @@ class Grast < Sinatra::Base
 	
 	set :bind, '0.0.0.0'
 	
+	before do
+  	request.body.rewind
+  	@request_payload = request.body.read
+	end	
+	
 	get '/' do
 		"Check"
 		Test::hole()
@@ -31,7 +36,7 @@ class Grast < Sinatra::Base
 	end
 	#post a new plant
 	post '/:grow/plants/add' do
-		Plant_Handler::post_plant(params[:grow], params[:strain], params[:planted])
+		Plant_Handler::post_plant(params[:grow], params[:strain], params[:planted], @request_payload)
 	end
 	#remove a plant
 	delete '/:grow/plants/:id' do
@@ -57,9 +62,8 @@ class Grast < Sinatra::Base
 	end
 	#post - note
 	post '/:grow/notes/add' do
-		puts "ADD NOTES"
 		content_type :json
-		Note_Handler::post_note(params[:grow], params[:data])
+		Note_Handler::post_note(params[:grow], params[:data], @request_payload)
 	end
 	#delete a note
 	delete '/:grow/notes/:id' do
