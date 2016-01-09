@@ -10,7 +10,7 @@ class Plant_Handler
 		g.plants.get(plant_id).to_json
 	end
 
-	def self.post_plant(grow_id, plant_strain, planted_date, plant)
+	def self.post_plant(grow_id, plant)
 		g = Grow.find(grow_id)
 		p = Plant.new()
 		if JSON.parse(plant).to_h['plant']['strain'] != nil then p.strain = JSON.parse(plant).to_h['plant']['strain'] end
@@ -30,12 +30,14 @@ class Plant_Handler
 	def self.update_ph(grow_id, plant_id, ph)
 		g = Grow.get(grow_id)
 		p = g.plants.get(plant_id)
-		p.soil_ph.push(ph)
+		p.soil_ph.push(JSON.parse(ph).to_h['ph']['reading'])
+		"{\"response\" : \"OK\", \"plant_id\" : \"#{p._id}\"}"
 	end
 			
 	def self.update_moisture(grow_id, plant_id, moisture)
 		g = Grow.get(grow_id)
 		p = g.plants.get(plant_id)
-		p.moisture_level.push(moisture)
+		p.moisture_level.push(JSON.parse(moisture).to_h['moisture']['reading'])
+		"{\"response\" : \"OK\", \"plant_id\" : \"#{p._id}\"}"
 	end
 end
