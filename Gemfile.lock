@@ -50,6 +50,3 @@ DEPENDENCIES
   sinatra
   sinatra-cross_origin
   thin
-
-BUNDLED WITH
-   1.11.2
